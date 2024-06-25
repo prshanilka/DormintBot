@@ -1,0 +1,17 @@
+{
+  "main": {
+    "headers": {
+      "Connection": "keep-alive",
+      "Accept": "application/json, text/plain, */*",
+      "User-Agent": "Mozilla/5.0 (Linux; Android 12; Nexus 5 Build/SQ1D.220205.004; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.114 Mobile Safari/537.36",
+      "Content-Type": "application/json",
+      "Origin": "https://web.dormint.io",
+      "X-Requested-With": "org.telegram.messenger",
+      "Sec-Fetch-Site": "same-site",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Dest": "empty",
+      "Referer": "https://web.dormint.io/",
+      "Accept-Language": "en,en-US;q=0.9"
+    }
+  }
+}
