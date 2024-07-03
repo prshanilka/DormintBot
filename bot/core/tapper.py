@@ -26,6 +26,7 @@ class Tapper:
 
     async def run(self, proxy: str | None) -> None:
         token = ""
+        start = False
         headers = get_headers(name=self.tg_client.name)
         Fetched = False
         proxy_conn = ProxyConnector().from_url(proxy) if proxy else None
@@ -61,7 +62,7 @@ class Tapper:
                         headers=headers, connector=proxy_conn
                     )
 
-                token = await generate_token(tg_client=self.tg_client, bot_username="dormint_bot")
+                token = await generate_token(tg_client=self.tg_client, bot_username="dormint_bot",start = start)
                 if not token:
                     logger.error(f'{self.session_name} | Getting token failed')
                     if Fetched:
@@ -72,16 +73,21 @@ class Tapper:
                     await asyncio.sleep(delay=120)
                     Fetched = True
                     continue
-
+                start = False
                 info = await get_info(http_client=http_client, auth_token=token)
                 info_status = info.get("status")
                 if not info_status == 'ok':
                     sleep_time = 120
                     if info_status == 'sleep':
                         sleep_time = info.get("sleep", 120)
+                    if info_status == 'error':
+                        status_code = info.get("status_code")
+                        if status_code == 'auth_failed_error':
+                            start = True
+
                     logger.info(f'Sleep {sleep_time}s')
                     await asyncio.sleep(delay=sleep_time)
-
+                    continue
                 logger.info(
                     f'Your current balance is: {info["sleepcoin_balance"]}')
                 farming_left = info.get("farming_left")

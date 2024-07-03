@@ -39,11 +39,16 @@ async def extract_tg_auth_token(url: str) -> str:
     return tg_auth_token
 
 
-async def generate_token(tg_client: Client, bot_username: str) -> str | None:
+async def generate_token(tg_client: Client, bot_username: str, start: bool) -> str | None:
     
     async with tg_client:
         # Get the last message from the bot
         last_message = await get_last_message(tg_client, bot_username)
+        if start:
+            await send_start_command(tg_client, bot_username)
+
+
+
         if not last_message:
             print("No messages found.")
             return
