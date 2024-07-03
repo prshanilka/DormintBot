@@ -81,7 +81,7 @@ class Tapper:
                         sleep_time = info.get("sleep", 120)
                     logger.info(f'Sleep {sleep_time}s')
                     await asyncio.sleep(delay=sleep_time)
-                    continue
+
                 logger.info(
                     f'Your current balance is: {info["sleepcoin_balance"]}')
                 farming_left = info.get("farming_left")
